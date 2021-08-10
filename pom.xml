@@ -1,123 +1,470 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>com.github.alexandrenavarro.todosample</groupId>
-	<artifactId>todo-sample</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>todo-sample</name>
-	<description>todo-sample</description>
-	<properties>
-		<java.version>17</java.version>
-		<testcontainers.version>1.15.3</testcontainers.version>
-		<maven.compiler.source>${java.version}</maven.compiler.source>
-		<maven.compiler.target>${java.version}</maven.compiler.target>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-cache</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.liquibase</groupId>-->
-<!--			<artifactId>liquibase-core</artifactId>-->
-<!--		</dependency>-->
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
-		</dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.alexandrenavarro.todosample</groupId>
+  <!-- TODO REPLACE ME -->
+  <artifactId>todo-sample</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <!-- TODO REPLACE ME -->
+  <name>todo-sample</name>
+  <!-- TODO REPLACE ME -->
+  <description>todo-sample</description>
+  <properties>
+    <!-- general properties-->
+    <java.version>17</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <maven.version>3.8.1</maven.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>io.micrometer</groupId>-->
-<!--			<artifactId>micrometer-registry-datadog</artifactId>-->
-<!--			<scope>runtime</scope>-->
-<!--		</dependency>-->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.testcontainers</groupId>
-			<artifactId>junit-jupiter</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.testcontainers</groupId>
-			<artifactId>kafka</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.testcontainers</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.testcontainers</groupId>
-				<artifactId>testcontainers-bom</artifactId>
-				<version>${testcontainers.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+    <!-- plugins versions -->
+    <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+    <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
+    <restrict-imports-enforcer-rule.version>1.2.0</restrict-imports-enforcer-rule.version>
+    <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+    <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+    <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+    <spotless-maven-plugin.version>2.12.2</spotless-maven-plugin.version>
+    <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
+    <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
+    <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <!-- dependency versions-->
+    <lombok.version>1.18.20</lombok.version>
+    <spring-boot-dependencies.version>2.5.3</spring-boot-dependencies.version>
+    <junit-jupiter.version>5.8.0-M1</junit-jupiter.version>
+    <assertj-core.version>3.20.2</assertj-core.version>
+    <mockito-core.version>3.9.0</mockito-core.version>
+    <equalsverifier.version>3.7</equalsverifier.version>
+    <meanbean.version>3.0.0-M9</meanbean.version>
+    <testcontainers.version>1.15.3</testcontainers.version>
+  </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot-dependencies.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers-bom</artifactId>
+        <version>${testcontainers.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <!-- util -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- cache -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-cache</artifactId>
+    </dependency>
+
+    <!-- web/rest -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- persistence -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.postgresql</groupId>-->
+<!--      <artifactId>postgresql</artifactId>-->
+<!--      <scope>runtime</scope>-->
+<!--    </dependency>-->
+    <!--		<dependency>-->
+    <!--			<groupId>org.liquibase</groupId>-->
+    <!--			<artifactId>liquibase-core</artifactId>-->
+    <!--		</dependency>-->
+
+    <!-- messaging -->
+    <dependency>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka</artifactId>
+    </dependency>
+
+    <!-- monitoring -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <!--		<dependency>-->
+    <!--			<groupId>io.micrometer</groupId>-->
+    <!--			<artifactId>micrometer-registry-datadog</artifactId>-->
+    <!--			<scope>runtime</scope>-->
+    <!--		</dependency>-->
+
+
+    <!-- test -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>nl.jqno.equalsverifier</groupId>
+      <artifactId>equalsverifier</artifactId>
+      <version>${equalsverifier.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.meanbeanlib</groupId>
+      <artifactId>meanbean</artifactId>
+      <version>${meanbean.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>kafka</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>${maven-clean-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${maven-enforcer-plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>de.skuzzle.enforcer</groupId>
+            <artifactId>restrict-imports-enforcer-rule</artifactId>
+            <version>${restrict-imports-enforcer-rule.version}</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>execution-id</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <rules>
+            <requireJavaVersion>
+              <message>You need at least java ${java.version}.
+              </message>
+              <version>[${java.version},)</version>
+            </requireJavaVersion>
+            <requireMavenVersion>
+              <message>You need at least maven ${maven.version}.
+              </message>
+              <version>[${maven.version},)</version>
+            </requireMavenVersion>
+            <banDuplicatePomDependencyVersions/>
+            <!-- TODO check it -->
+<!--            <dependencyConvergence/>-->
+            <requirePluginVersions/>
+            <restrictImports implementation="de.skuzzle.enforcer.restrictimports.rule.RestrictImports">
+              <groups>
+                <group>
+                  <reason>Accept only to use some lombok annotation</reason>
+                  <bannedImports>
+                    <bannedImport>lombok.**</bannedImport>
+                  </bannedImports>
+                  <allowedImports>
+                    <!-- Keep this order of annotation when multiple are used (generally in the same order if you have to write the code manually)-->
+                    <allowedImport>lombok.extern.slf4j.Slf4j</allowedImport>
+                    <!-- Annotation like to swagger/documentation (not linked directly)-->
+                    <allowedImport>lombok.AccessLevel</allowedImport>
+                    <allowedImport>lombok.NoArgsConstructor</allowedImport>
+                    <allowedImport>lombok.RequiredArgsConstructor</allowedImport>
+                    <allowedImport>lombok.AllArgsConstructor</allowedImport>
+                    <allowedImport>lombok.Getter</allowedImport>
+                    <allowedImport>lombok.Setter</allowedImport>
+                    <allowedImport>lombok.experimental.Accessors</allowedImport>
+                    <allowedImport>lombok.EqualsAndHashCode</allowedImport>
+                    <allowedImport>lombok.ToString</allowedImport>
+                    <allowedImport>lombok.Builder</allowedImport>
+                    <allowedImport>lombok.extern.jackson.Jacksonized</allowedImport>
+                  </allowedImports>
+                </group>
+              </groups>
+            </restrictImports>
+          </rules>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven-resources-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${maven-jar-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot-dependencies.version}</version>
+        <configuration>
+          <excludes>
+            <exclude>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+            </exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco-maven-plugin.version}</version>
+        <configuration>
+          <excludes>
+            <exclude>**/*_.*</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>pre-unit-tests</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+            <configuration>
+              <!-- Sets the path to the file which contains the execution
+                data. -->
+              <destFile>${jacoco.utReportFile}</destFile>
+            </configuration>
+          </execution>
+          <!-- Ensures that the code coverage report for unit tests is
+            created after unit tests have been run -->
+          <execution>
+            <id>post-unit-test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <configuration>
+              <dataFile>${jacoco.utReportFile}</dataFile>
+              <outputDirectory>${jacoco.reportFolder}</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>pre-integration-tests</id>
+            <goals>
+              <goal>prepare-agent-integration</goal>
+            </goals>
+            <configuration>
+              <!-- Sets the path to the file which contains the execution
+                data. -->
+              <destFile>${jacoco.itReportFile}</destFile>
+            </configuration>
+          </execution>
+          <!-- Ensures that the code coverage report for integration tests
+            is created after integration tests have been run -->
+          <execution>
+            <id>post-integration-tests</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>report-integration</goal>
+            </goals>
+            <configuration>
+              <dataFile>${jacoco.itReportFile}</dataFile>
+              <outputDirectory>${jacoco.reportFolder}</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>merge</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>merge</goal>
+            </goals>
+            <configuration>
+              <fileSets>
+                <fileSet
+                  implementation="org.apache.maven.shared.model.fileset.FileSet">
+                  <directory>${project.basedir}</directory>
+                  <includes>
+                    <include>**/*.exec</include>
+                  </includes>
+                </fileSet>
+              </fileSets>
+              <destFile>${jacoco.reportFile}</destFile>
+            </configuration>
+          </execution>
+          <execution>
+            <id>post-merge-report</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <configuration>
+              <dataFile>${jacoco.reportFile}</dataFile>
+              <outputDirectory>${jacoco.reportFolder}</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>jacoco-check</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <configuration>
+              <excludes>
+                <!-- TODO REPLACE ME-->
+                <exclude>**/TodoSampleApplication.class</exclude>
+              </excludes>
+              <rules>
+                <rule>
+                  <element>CLASS</element>
+                  <limits>
+                    <limit>
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>1.00</minimum>
+                    </limit>
+                    <limit>
+                      <counter>BRANCH</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>1.00</minimum>
+                    </limit>
+                    <limit>
+                      <counter>CLASS</counter>
+                      <value>MISSEDCOUNT</value>
+                      <maximum>0</maximum>
+                    </limit>
+                  </limits>
+                </rule>
+              </rules>
+              <dataFile>${jacoco.reportFile}</dataFile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>${spotless-maven-plugin.version}</version>
+        <configuration>
+          <java>
+            <toggleOffOn/>
+            <includes>
+              <include>${basedir}/src/main/java/**/*.java</include>
+              <include>${basedir}/src/test/java/**/*.java</include>
+            </includes>
+            <importOrder>
+              <order>java,javax,org,com,com.diffplug,
+              </order>
+            </importOrder>
+            <removeUnusedImports/>
+            <trimTrailingWhitespace/> <!-- trim trailing whitespaces -->
+            <endWithNewline/> <!-- files must end with a newline -->
+            <!--                        <googleJavaFormat />-->
+            <!-- config taken from https://github.com/google/styleguide with
+             <setting id="org.eclipse.jdt.core.formatter.join_wrapped_lines" value="false"/> for builder
+             <setting id="org.eclipse.jdt.core.formatter.lineSplit" value="140"/>
+             <setting id="org.eclipse.jdt.core.formatter.comment.line_length" value="140"/>
+             <setting id="org.eclipse.jdt.core.formatter.alignment_for_enum_constants" value="17"/> for enum value on one line each
+             -->
+            <eclipse>
+              <file>${basedir}/src/main/config/eclipse-java-google-style-140.xml</file>
+            </eclipse>
+          </java>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>${maven-install-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>${maven-deploy-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>${maven-site-plugin.version}</version>
+      </plugin>
+    </plugins>
+  </build>
 </project>
